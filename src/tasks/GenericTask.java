@@ -24,7 +24,9 @@ public class GenericTask extends TaskDetails {
 				RAISETASK(task,
 						TOKENISEDSTRING("$1 on $2", NAMEDSTRING(kpi.getTaskCode() + "_Description"), ELEMENTNAME()),
 						PROPERTY("Element", ELEMENTNAME()),
-						PROPERTY("Technology", ELEMENTCATEGORY()),
+						//TODO: HY Mod
+						//PROPERTY("Technology", ELEMENTCATEGORY()),
+						PROPERTY("Technology", kpi.getTechnology()),
 						PROPERTY("Category", kpi.getCategory()),
 						PROPERTY("Task Code", kpi.getTaskCode()),
 						PROPERTY("Level", elementLvl),

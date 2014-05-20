@@ -10,11 +10,12 @@ package rules;
 import genericrules.KPI;
 import genericrules.KPIConf;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.w3c.dom.*;
- 
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
@@ -25,7 +26,7 @@ public class XMLParser{
 	
 	//private String filename = "kpi.xml";
 	
-	private static KPIConf kpi_list;
+	private static KPIConf kpi_list = null;
 	
 	private final String parentTagName_kpi = "kpi";
 	
@@ -87,6 +88,12 @@ public class XMLParser{
      
             // normalize text representation
             doc.getDocumentElement().normalize ();
+            
+            //TODO: HY - clear tagValueLists to prevent append to existing list for diff XML file
+            tagValueListKPI.clear();
+            tagValueListKPIRel.clear();
+            tagValueListCM.clear();
+            tagValueListGeneral.clear();
  
            //Get data based on different tags. Tags must be declared top of the class
            getData(doc, parentTagName_kpi, tagName_kpi, tagValueListKPI);
@@ -164,7 +171,7 @@ public class XMLParser{
            	kpi_list.setTestMode(arrayTagValue[0].toUpperCase().equals("YES"));
         	      	
            	kpi_list.setTechnology(arrayTagValue[1]);
-        	
+           	
         	kpi_list.setVendor(arrayTagValue[2]);
         	
         	kpi_list.setWindowName(arrayTagValue[3]);

@@ -69,53 +69,72 @@ public class GenericRules extends CheckPerformance {
 		RaiseTask.onComplete().newAction(SETTASKPRIORITY(myTesingTask, NSM_PRIORITY.LOW()));
 	}
 	
+	private enum Tech {
+		GSM,
+		WCDMA,
+		LTE
+	}
+	
 	/**
 	 * @param start
 	 * @param elementName
 	 * @return Filtered flowcontroller
 	 * 
 	 * Desc:
-	 * Filter flowcontroller based on technology and vendor
-	 * Flexible enough to adapt to different configuration from XML General technology and vendor tag
-	 * 
+	 * Filter flowcontroller based on WCDMA
+	 * CI		=> 2G
+	 * WCDMA_CI	=> 3G
+	 * ECI		=> 4G
 	 */
 	public static FlowController getFilteredFlow(KPIConf kpiList, FlowController start, NSM_STRING elementName) {
 		
 		FlowController elementToCheck;
+
 		
-		//filter based on both technology and vendor
-		if( (kpiList.getTechnology().length() > 0) && (kpiList.getVendor().length() > 0) ) {
+		//filter based on technology ONLY
+		if( (kpiList.getTechnology().length() > 0) ) {
+			
+			String technologyName = null;
+			Tech kpiTechnology = Tech.valueOf(kpiList.getTechnology());
+			
+			switch(kpiTechnology) {
+			case GSM:
+				technologyName = "CI";
+				break;
+			case WCDMA:
+				technologyName = "WCDMA_CI";
+				break;
+			case LTE:
+				technologyName = "ECI";
+				break;
+			default:
+				System.out.println("NO SUCH TECHNOLOGY NAME");
+			}
 			
 			elementToCheck = start.newCheck(LOWERCASE(elementName).IS(EQUALTO("none")).
-					AND(IS(UPPERCASE(ELEMENTCATEGORY()), CONTAINS(kpiList.getTechnology()))).
-					AND(IS(UPPERCASE(PARAMETERSTRING("Vendor")), CONTAINS(kpiList.getVendor()))).
+					AND(METRIC(technologyName).EXISTS()).
 					OR(ELEMENTNAME().IS(EQUALTO(elementName)))).onTrue();
+			
+			// TODO: HY temp edit
+            //elementToCheck = start.newCheck(LOWERCASE(elementName).
+            //		IS(EQUALTO("none")).AND(ELEMENTNAME().IS(CONTAINS("U007")))).onTrue();
+			//elementToCheck.output(ELEMENTNAME());
+			
+			if (isDebugMode)
+			{
+				elementToCheck.output(ELEMENTNAME());
+			}
 		}
-		//filter based on technology
-		else if( (kpiList.getTechnology().length() > 0) && (kpiList.getVendor().length() == 0) ) {
-			
-			elementToCheck = start.newCheck(LOWERCASE(elementName).IS(EQUALTO("none")).
-					AND(IS(UPPERCASE(ELEMENTCATEGORY()), CONTAINS(kpiList.getTechnology()))).
-					OR(ELEMENTNAME().IS(EQUALTO(elementName)))).onTrue();
-			
-		}
-		//filter based on vendor
-		else if( (kpiList.getTechnology().length() == 0) && (kpiList.getVendor().length() > 0) ) {
-			
-			elementToCheck = start.newCheck(LOWERCASE(elementName).IS(EQUALTO("none")).
-					AND(IS(UPPERCASE(PARAMETERSTRING("Vendor")), CONTAINS(kpiList.getVendor()))).
-					OR(ELEMENTNAME().IS(EQUALTO(elementName)))).onTrue();
-		} 
-		//no filtering as both technology and vendor tag are empty
+		//no filtering as technology tag empty
 		else {
 			
 			elementToCheck = start.newCheck(LOWERCASE(elementName).IS(EQUALTO("none")).
-					AND(IS(ELEMENTCATEGORY(), EQUALTO("GSM"))).
 					OR(ELEMENTNAME().IS(EQUALTO(elementName)))).onTrue();		
 		}
 		
 		return elementToCheck;
 	}
+	
 	
 	/**
 	 * Desc:
