@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by user (Actix Limited) -->
-<!-- edited with XMLSpy v2007 rel. 3 sp1 (http://www.altova.com) by private (private) -->
 
-<connection server="my-ora2.a1.intra" port="1521" instance="PSO_01" user="ACTIXONE_OWNER_ENTEL_STAGING" password="xitca"/>
+<!-- A1 DB server -->
+<!-- connection server="10.10.10.1" port="1521" instance="ORA11202" user="ACTIXONE_OWNER_XX" password="xitca"/> -->

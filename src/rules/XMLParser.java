@@ -3,6 +3,7 @@
  * History: 
  * 120712/DL -File creation.
  * 121109/DL -Added "eventcode", "taskactioncode", "taskcausecode" to tagName_KPI
+ * 140423/DL -Clear list before adding into the list. Fixed static memory issue if there is multiple rules in a single run.
  */
 package rules;
 
@@ -88,6 +89,12 @@ public class XMLParser{
             // normalize text representation
             doc.getDocumentElement().normalize ();
  
+            //140423/DL - Clear list before adding new data to the list
+			tagValueListKPI.clear();
+            tagValueListKPIRel.clear();
+            tagValueListCM.clear();
+            tagValueListGeneral.clear();
+
            //Get data based on different tags. Tags must be declared top of the class
            getData(doc, parentTagName_kpi, tagName_kpi, tagValueListKPI);
            

@@ -5,6 +5,7 @@
  * 121016/DL -Remove event code from event properties as it is already auto generated
  * 130313/DL -Added TopN Support
  * 130503/DL -Added SiteName and ControllerName
+ * 140423/DL -Fix trigMethod value for Loop. Previously was if ('D' != trigMethod). 
  */
 package genericrules;
 
@@ -357,13 +358,15 @@ public class GenericCheck extends CheckPerformance{
 		
 		int trigMethod = kpi.getTriggerMethod();
 		
-		if ('D' != trigMethod) {
+		//140423/DL - Fix trigMethod value. Previously was if ('D' != trigMethod)
+		if (2 != trigMethod) {
 			
 			thres =  NAMEDTHRESHOLD(kpi.getFullname() + "_PerfThreshold");
 		
 		}
 		
-		if ('T' != trigMethod) {
+		//140423/DL - Fix trigMethod value. Previously was if ('T' != trigMethod)
+		if (1 != trigMethod) {
 		
 			NSM_VALUE deviationConstant = NAMEDTHRESHOLD("Deviation_Constant");	
 		
