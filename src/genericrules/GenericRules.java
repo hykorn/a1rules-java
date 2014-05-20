@@ -4,6 +4,8 @@
  * 120712/DL -File creation. Code is quite messy as it needs to handle both relational or non-relational events. It will be cleaner if we separate them into 2 different classes in the future.
  * 121109/DL -Read from xml for eventcode, taskactionid , taskcause id 
  * 121214/DL -Split GenericRules code into common and actual caller
+ * 20130709/Pat: SetAction to Default_Action - avoid creating a long list of Junks in Task Action (do not execute 06_xx.sql)
+ * 20140505/Pat: SetAction to SYS_INVEST - avoid creating a long list of Junks in Task Action (do not execute 06_xx.sql if no custom/specific Task Action is to be created)
  */
 package genericrules;
 
@@ -513,7 +515,8 @@ public class GenericRules extends CheckPerformance {
 		
 		task.SetCause(taskcause);
 		
-		task.SetAction(taskaction);
+		//task.SetAction(taskaction);
+		task.SetAction("SYS_INVEST");
 		
 		setGenericTaskPriority(kpi, task);
 		

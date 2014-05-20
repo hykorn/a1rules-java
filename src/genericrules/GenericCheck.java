@@ -6,6 +6,7 @@
  * 130313/DL -Added TopN Support
  * 130503/DL -Added SiteName and ControllerName
  * 140423/DL -Fix trigMethod value for Loop. Previously was if ('D' != trigMethod). 
+ * 140520/DL -Fix case 102 trigMethod for condition=l. It is an 'OR' condition instead 'AND'
  */
 package genericrules;
 
@@ -63,7 +64,7 @@ public class GenericCheck extends CheckPerformance{
 			
 				case 112: checkCondition = IS(curValue,LESSTHANOREQUALTO(thres).AND(LESSTHANOREQUALTO(devMean))); break;
 				
-				case 102: checkCondition = IS(curValue,LESSTHANOREQUALTO(thres).AND(LESSTHANOREQUALTO(devMean))); break;
+				case 102: checkCondition = IS(curValue,LESSTHANOREQUALTO(thres).OR(LESSTHANOREQUALTO(devMean))); break;
 			
 			}
 			
