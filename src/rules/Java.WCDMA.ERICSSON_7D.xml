@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<rule>
+ <general>
+     <testMode>No</testMode>
+     <technology>WCDMA</technology>
+     <vendor>ERICSSON</vendor>
+     <windowName>Last7Days</windowName>
+     <taskQueueName></taskQueueName>
+ </general>
+ <cm_list>
+ </cm_list>
+ <kpi_list>
+     <kpi>
+         <taskcode>E3_TU</taskcode>
+         <eventcode>E3_TU_E</eventcode>
+         <taskactioncode>SYS_INVEST</taskactioncode>
+         <taskcausecode>E3_TU_C</taskcausecode>
+         <fullname>PM_3G_TH_USER_DL_ERICSSON</fullname>
+         <vendorName>ERICSSON</vendorName>
+         <technology>WCDMA</technology>
+         <condition>lt</condition>
+         <unit>kbps</unit>
+         <triggerMethod>122</triggerMethod>
+         <category>Data Integrity</category>
+     </kpi>
+     <kpi>
+         <taskcode>E3_R</taskcode>
+         <eventcode>E3_R_E</eventcode>
+         <taskactioncode>SYS_INVEST</taskactioncode>
+         <taskcausecode>E3_R_C</taskcausecode>
+         <fullname>PM_3G_RSSI_ERICSSON</fullname>
+         <vendorName>ERICSSON</vendorName>
+         <technology>WCDMA</technology>
+         <condition>gt</condition>
+         <unit>dB</unit>
+         <triggerMethod>122</triggerMethod>
+         <category>Accessibility</category>
+     </kpi>
+     <!-- <kpi>
+         <taskcode>E3_P</taskcode>
+         <eventcode>E3_P_E</eventcode>
+         <taskactioncode>SYS_INVEST</taskactioncode>
+         <taskcausecode>E3_P_C</taskcausecode>
+         <fullname>PM_3G_PAG_SUC_3G_CELL_ERICSSON</fullname>
+         <vendorName>ERICSSON</vendorName>
+         <technology>WCDMA</technology>
+         <condition>lt</condition>
+         <unit></unit>
+         <triggerMethod>122</triggerMethod>
+         <category>Accessibility</category>
+     </kpi> -->
+ </kpi_list>
+</rule>
